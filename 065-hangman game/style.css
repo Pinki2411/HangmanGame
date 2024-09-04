@@ -4,7 +4,6 @@
   --primary-color: #1f2f61;
   --secondary-color: #224ca4;
   --light-color: #a7c2da;
-}
 
 * {
   box-sizing: border-box;
@@ -13,7 +12,7 @@
 body {
   background-color: var(--primary-color);
   color: var(--light-color);
-  font-family: "DotGothic16", sans-serif;
+  font-family: "Muli", sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -145,3 +144,20 @@ h3 {
 .notification-container p {
   margin: 0;
 }
+
+.hint-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background-color: #324576;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.hint-button:hover {
+  background-color: #0056b3;
+}
+
