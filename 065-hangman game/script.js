@@ -4,11 +4,13 @@ const playAgainButton = document.getElementById("play-button");
 const popup = document.getElementById("popup-container");
 const notification = document.getElementById("notification-container");
 const finalMessage = document.getElementById("final-message");
-const finalMessageRevealWord = document.getElementById(
-  "final-message-reveal-word"
-);
+const finalMessageRevealWord = document.getElementById("final-message-reveal-word");
 const figureParts = document.querySelectorAll(".figure-part");
+const hintElement = document.getElementById("hint");
+const hintContainer = document.getElementById("hint-container");
+const hintButton = document.getElementById("hint-button");
 
+// Words array
 const words = [
   "application",
   "programming",
@@ -33,13 +35,49 @@ const words = [
   "type",
   "node",
 ];
-let selectedWord = words[Math.floor(Math.random() * words.length)];
+
+// Hints array corresponding to the words
+const hints = [
+  "A software program or a web app",
+  "The process of writing computer programs",
+  "A boundary across which two separate components interact",
+  "A magic practitioner",
+  "A part of something",
+  "A preliminary version of something",
+  "A function that is passed as an argument",
+  "Not defined or known",
+  "Values passed to a function",
+  "Options or configurations",
+  "A part of CSS to target HTML elements",
+  "A type of container in programming",
+  "An example or single occurrence of something",
+  "The reply from a server",
+  "A tool used in development",
+  "A function used to create an instance of a class",
+  "A secret or key used for authentication",
+  "A block of code that performs a specific task",
+  "A keyword to give back the value from a function",
+  "The size or amount of something",
+  "A category or classification of data",
+  "A point in a data structure",
+];
+
+let selectedWordIndex = Math.floor(Math.random() * words.length);
+let selectedWord = words[selectedWordIndex];
+let selectedHint = hints[selectedWordIndex];
 
 let playable = true;
 
 const correctLetters = [];
 const wrongLetters = [];
 
+// Function to display the hint
+function displayHint() {
+  hintContainer.style.display = "block";
+  hintElement.innerText = selectedHint;
+}
+
+// Function to display the word
 function displayWord() {
   wordElement.innerHTML = `
     ${selectedWord
@@ -62,6 +100,7 @@ function displayWord() {
   }
 }
 
+// Function to update the wrong letters
 function updateWrongLettersElement() {
   wrongLettersElement.innerHTML = `
   ${wrongLetters.length > 0 ? "<p>Wrong</p>" : ""}
@@ -81,6 +120,7 @@ function updateWrongLettersElement() {
   }
 }
 
+// Function to show notification
 function showNotification() {
   notification.classList.add("show");
   setTimeout(() => {
@@ -88,6 +128,7 @@ function showNotification() {
   }, 2000);
 }
 
+// Event listener for keypress
 window.addEventListener("keypress", (e) => {
   if (playable) {
     const letter = e.key.toLowerCase();
@@ -111,15 +152,22 @@ window.addEventListener("keypress", (e) => {
   }
 });
 
+// Event listener for play again button
 playAgainButton.addEventListener("click", () => {
   playable = true;
   correctLetters.splice(0);
   wrongLetters.splice(0);
-  selectedWord = words[Math.floor(Math.random() * words.length)];
+  selectedWordIndex = Math.floor(Math.random() * words.length);
+  selectedWord = words[selectedWordIndex];
+  selectedHint = hints[selectedWordIndex];
   displayWord();
+  hintContainer.style.display = "none"; // Hide hint again
   updateWrongLettersElement();
   popup.style.display = "none";
 });
+
+// Event listener for hint button
+hintButton.addEventListener("click", displayHint);
 
 // Init
 displayWord();
