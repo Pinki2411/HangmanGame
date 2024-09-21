@@ -129,7 +129,7 @@ function showNotification() {
 }
 
 // Event listener for keypress
-window.addEventListener("keypress", (e) => {
+window.addEventListener("keydown", (e) => {
   if (playable) {
     const letter = e.key.toLowerCase();
     if (letter >= "a" && letter <= "z") {
